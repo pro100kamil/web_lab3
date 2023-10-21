@@ -47,14 +47,15 @@
     <ui:include src="footer.html"/>
 
     <h:outputScript>
-        let clock = document.getElementById("time");
+        const UPDATE_INTERVAL_IN_MS = 6000;
+
         let colors = ["red", "yellow", "green"];
 
         let hours = document.getElementById("hours");
         let minutes = document.getElementById("minutes");
         let seconds = document.getElementById("seconds");
 
-        setInterval(() => {
+        function setTime() {
             let curDate = new Date();
 
             let hh = curDate.getHours();
@@ -70,10 +71,14 @@
             minutes.innerText = mm;
             seconds.innerText = ss;
 
-            hours.style.color = colors[(colors.indexOf(hours.style.color) + 1) % colors.length]
-            minutes.style.color = colors[(colors.indexOf(minutes.style.color) + 1) % colors.length]
-            seconds.style.color = colors[(colors.indexOf(seconds.style.color) + 1) % colors.length]
-        }, 1000);
+            hours.style.color = colors[(colors.indexOf(hours.style.color) + 1) % colors.length];
+            minutes.style.color = colors[(colors.indexOf(minutes.style.color) + 1) % colors.length];
+            seconds.style.color = colors[(colors.indexOf(seconds.style.color) + 1) % colors.length];
+        }
+
+        setTime();
+
+        setInterval(setTime, UPDATE_INTERVAL_IN_MS);
     </h:outputScript>
 </h:body>
 

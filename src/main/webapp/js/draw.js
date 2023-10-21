@@ -1,29 +1,25 @@
 let centerX = 225;  //в этом мест x=0 с точки зрения математических координат
 let centerY = 225;  //в этом мест y=0 с точки зрения математических координат
 let R = 200;
+let DEFAULT_R_ = 2;
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
 context.font = "12px Verdana";
 
 function drawPoint(x, y, delta = 2) {
     context.rect(x - delta / 2, y - delta / 2, delta, delta);
-    // context.fillRect(x - delta / 2, y - delta / 2, delta, delta);
 }
 
 function get_r_() {
-    if (document.getElementsByClassName("input_r").length === 0) {
-        let params = (new URL(document.location)).searchParams;
-        return +params.get("param_r");
-    } else {
-        return +document.getElementsByClassName("input_r")[0].value;
+    let input_r = document.getElementsByClassName("input_r")[0];
+    if (isNaN(+input_r.value) || +input_r.value < 2 || +input_r.value > 5) {
+        return DEFAULT_R_;
     }
+    return +input_r.value;
 }
 
 function drawPointForJSF(mathX, mathY, color = "red", delta = 4) {
     let r_ = get_r_();
-    if (r_ < 2) r_ = 2;
-
-    console.log(mathX, mathY, r_);
 
     let x = mathX * R / r_ + centerX;
     let y = centerY - mathY * R / r_;
@@ -153,8 +149,6 @@ function updateCanvas(event) {
         if (children[0].tagName.toLowerCase() === "td" && children[0].innerText !== "" && children[0].innerText !== "") {
             let x = children[0].innerText;
             let y = children[1].innerText;
-            console.log("xy: ", x, y);
-            // TODO доработать отрисовку
             drawPointForJSF(x, y,
                 (children[3].innerText === "true" ? "white" : "red")
             );

@@ -37,7 +37,9 @@ p.error-message {
 }
 
 .container form input[type="submit"] {
+    margin: 5px;
     padding: 15px;
+    border-radius: 20px;
     border: 1px dashed blue;
 }
 
@@ -95,11 +97,6 @@ th, td {
 td:hover {
     font-style: italic;
 }
-
-/*.attemptsTable {*/
-/*    border: 1px green solid;*/
-/*    margin: 10px auto;*/
-/*}*/
 
 table, td, th {
     /* задаем границу для всех элементов */

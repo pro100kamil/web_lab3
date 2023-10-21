@@ -16,17 +16,11 @@ public class CollectionAttemptsBean implements Serializable {
     private final List<Attempt> attempts;
     private final LocalDateTime dateTime;
 
-    private Attempt currentAttempt = new Attempt("-3", "0", "2");
+    private Attempt currentAttempt = new Attempt("0", "0", "2");
 
     public CollectionAttemptsBean() {
         attempts = new ArrayList<>();
         dateTime = LocalDateTime.now();
-
-//        add(new Attempt("2", "0", "2"));
-//        add(new Attempt("0", "0", "2"));
-//        add(new Attempt("-2", "2", "2"));
-//        add(new Attempt("0.5", "-0.5", "2"));
-//        add(new Attempt("-0.5", "0.5", "2"));
     }
 
     public void add() {
@@ -36,8 +30,8 @@ public class CollectionAttemptsBean implements Serializable {
                 currentAttempt.getY(), currentAttempt.getR());
     }
 
-    public void clear() {
-        attempts.clear();
+    public void add(Attempt attempt) {
+        attempts.add(attempt);
     }
 
     public void addFromCanvas() {
@@ -48,8 +42,8 @@ public class CollectionAttemptsBean implements Serializable {
         add(new Attempt(strX, strY, strR));
     }
 
-    public void add(Attempt attempt) {
-        attempts.add(attempt);
+    public void clear() {
+        attempts.clear();
     }
 
     public List<Attempt> getAttempts() {

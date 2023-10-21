@@ -47,25 +47,25 @@
 
                 <br/>
 
-                X
                 <p class="p_input_x">
+                    X <br/>
                     <!--                commandLink преобразуется в a-->
                     <h:commandLink value="-3"
                                    styleClass="#{attempts.currentAttempt.x == -3 ? 'button_input_x  active' : 'button_input_x'}">
                         <f:ajax render="test_x"
-                                listener="#{attempts.currentAttempt.setX(-3)}" onevent="handleClick(event)"/>
+                                listener="#{attempts.currentAttempt.setX(-3)}" onevent="handleClick"/>
                     </h:commandLink>
 
                     <h:commandLink value="-2"
                                    styleClass="#{attempts.currentAttempt.x == -2 ? 'button_input_x  active' : 'button_input_x'}">
                         <f:ajax render="test_x"
-                                listener="#{attempts.currentAttempt.setX(-2)}" onevent="handleClick(event)"/>
+                                listener="#{attempts.currentAttempt.setX(-2)}" onevent="handleClick"/>
                     </h:commandLink>
 
                     <h:commandLink value="-1"
                                    styleClass="#{attempts.currentAttempt.x == -1 ? 'button_input_x  active' : 'button_input_x'}">
                         <f:ajax render="test_x"
-                                listener="#{attempts.currentAttempt.setX(-1)}" onevent="handleClick(event)"/>
+                                listener="#{attempts.currentAttempt.setX(-1)}" onevent="handleClick"/>
                     </h:commandLink>
 
                     <br/>
@@ -73,19 +73,19 @@
                     <h:commandLink value="0"
                                    styleClass="#{attempts.currentAttempt.x == 0 ? 'button_input_x  active' : 'button_input_x'}">
                         <f:ajax render="test_x"
-                                listener="#{attempts.currentAttempt.setX(0)}" onevent="handleClick(event)"/>
+                                listener="#{attempts.currentAttempt.setX(0)}" onevent="handleClick"/>
                     </h:commandLink>
 
                     <h:commandLink value="1"
                                    styleClass="#{attempts.currentAttempt.x == 1 ? 'button_input_x  active' : 'button_input_x'}">
                         <f:ajax render="test_x"
-                                listener="#{attempts.currentAttempt.setX(1)}" onevent="handleClick(event)"/>
+                                listener="#{attempts.currentAttempt.setX(1)}" onevent="handleClick"/>
                     </h:commandLink>
 
                     <h:commandLink value="2"
                                    styleClass="#{attempts.currentAttempt.x == 2 ? 'button_input_x  active' : 'button_input_x'}">
                         <f:ajax render="test_x"
-                                listener="#{attempts.currentAttempt.setX(2)}" onevent="handleClick(event)"/>
+                                listener="#{attempts.currentAttempt.setX(2)}" onevent="handleClick"/>
                     </h:commandLink>
 
                     <br/>
@@ -93,19 +93,19 @@
                     <h:commandLink value="3"
                                    styleClass="#{attempts.currentAttempt.x == 3 ? 'button_input_x  active' : 'button_input_x'}">
                         <f:ajax render="test_x"
-                                listener="#{attempts.currentAttempt.setX(3)}" onevent="handleClick(event)"/>
+                                listener="#{attempts.currentAttempt.setX(3)}" onevent="handleClick"/>
                     </h:commandLink>
 
                     <h:commandLink value="4"
                                    styleClass="#{attempts.currentAttempt.x == 4 ? 'button_input_x  active' : 'button_input_x'}">
                         <f:ajax render="test_x"
-                                listener="#{attempts.currentAttempt.setX(4)}" onevent="handleClick(event)"/>
+                                listener="#{attempts.currentAttempt.setX(4)}" onevent="handleClick"/>
                     </h:commandLink>
 
                     <h:commandLink value="5"
                                    styleClass="#{attempts.currentAttempt.x == 5 ? 'button_input_x  active' : 'button_input_x'}">
                         <f:ajax render="test_x"
-                                listener="#{attempts.currentAttempt.setX(5)}" onevent="handleClick(event)"/>
+                                listener="#{attempts.currentAttempt.setX(5)}" onevent="handleClick"/>
                     </h:commandLink>
                 </p>
 
@@ -119,68 +119,41 @@
 
                 <p>
                     R[2;5]
-                    <h:inputText styleClass="input_r" pt:placeholder="2" value="#{attempts.currentAttempt.r}">
+                    <h:inputText styleClass="input_r" pt:placeholder="2" required="true"
+                                 value="#{attempts.currentAttempt.r}" onchange="updateCanvas()">
                         <f:validateLongRange minimum="2" maximum="5"/>
                     </h:inputText>
                 </p>
 
                 <p>
-                    <!--                    commandButton преобразуется в input[type="submit"]-->
-
-                    <!--       TODO починить валидацию       -->
-
-                    <!--                    <h:commandButton value="Отправить форму" styleClass="submit_btn">-->
+                    <!--  commandButton преобразуется в input[type="submit"]-->
                     <h:commandButton value="Отправить форму">
-                        <!--                        <f:ajax listener="#{attempts.add()}" render="dataTable script"/>-->
-
-                        <!--                        <p:ajax listener="#{attempts.add()}" />-->
-                        <!--                        <p:ajax listener="#{attempts.add()}" update="dataTable" process="form" onstart="handleSubmit"/>-->
                         <f:ajax listener="#{attempts.add()}" render="dataTable test" execute="form"
                                 onevent="handleSubmit"/>
                     </h:commandButton>
-
-                    <br/>
-                    <br/>
-
                     <h:commandButton value="Очистить попытки">
                         <f:ajax listener="#{attempts.clear()}" render="dataTable" execute="form"
                                 onevent="handleClear"/>
                     </h:commandButton>
-
-                    <!--                    <h:commandButton action="#{attempts.add}" value="Отправить форму" styleClass="submit_btn">-->
-                    <!--                        <f:ajax execute="@this" render="dataTable" onevent="return false"/>-->
-                    <!--                    </h:commandButton>-->
-
-                    <!--                    <h:commandButton value="Отправить форму" styleClass="submit_btn">-->
-                    <!--                        <f:ajax listener="#{attempts.add}" execute="@this" render="dataTable" onevent="return false"/>-->
-                    <!--                    </h:commandButton>-->
-
-                    <!--                    <p:commandButton ajax="true" id="submit" value="Отправить форму"-->
-                    <!--                                     styleClass="submit_btn"-->
-                    <!--                                     update="dataTable"-->
-                    <!--                    />-->
-
-                    <!--                    <p:commandButton value="Custom" styleClass="custom" action="#{buttonBasicView.sleep()}" />-->
                 </p>
 
-                <p class="error-message">Error</p>
+                <p class="error-message">
+
+                </p>
 
             </h:form>
 
         </div>
-
 
         <div id="div_table">
             <h:dataTable id="dataTable" value="#{attempts.attempts}" var="attempt"
                          styleClass="attemptsTable"
                          headerClass="employeeTableHeader"
                          rowClasses="employeeTableOddRow,employeeTableEvenRow">
-                <!--                         pt:border="1px black solid"-->
-
 
                 <h:column>
                     <f:facet name="header">X</f:facet>
-                    <h:outputText value=" #{attempt.x}"/>
+                    <h:outputText value="#{attempt.x}"/>
                 </h:column>
 
                 <h:column>
@@ -203,11 +176,10 @@
 
     <ui:include src="footer.html"/>
 
-    <script src="js/draw.js"></script>
-    <script src="js/validate.js"></script>
-    <script src="js/handleChangeCommandLink.js"></script>
-
-    <ui:param name="max" value="4"/>
+    <script src="js/draw.js" type="text/javascript"></script>
+    <script src="js/validate.js" type="text/javascript"></script>
+    <script src="js/handleChangeCommandLink.js" type="text/javascript"></script>
+    <script src="js/handleButtons.js" type="text/javascript"></script>
 
     <p:remoteCommand name="addAttempt" action="#{attempts.addFromCanvas()}" update="dataTable"
                      oncomplete="updateCanvas()"/>

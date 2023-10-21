@@ -34,7 +34,6 @@ function getErrorY() {
     return "";
 }
 
-
 function getErrorR() {
     //возвращает строковую ошибку или пустую строку при отсутствии ошибок
     let input_r = document.getElementsByClassName("input_r")[0];
@@ -54,29 +53,3 @@ function getErrorR() {
     }
     return "";
 }
-
-function handleSubmit(event) {
-    let status = event.status; // Can be 'begin', 'complete' and 'success'.
-    console.log("handle submit, status: ", status);
-    if (status === 'success') {  //чтобы при отправке формы отрисовка была только после ajax
-        console.log("status is success")
-        updateCanvas();
-    }
-    if (status === 'begin') {
-        handlerY();
-        if (!validateY()) return true;
-        handlerR();
-        return validateR();
-    }
-}
-
-
-function handleClear(event) {
-    let status = event.status; // Can be 'begin', 'complete' and 'success'.
-    if (status === 'success') {  //чтобы при отправке формы отрисовка была только после ajax
-        console.log("status is success")
-        updateCanvas();
-    }
-}
-
-console.log("validate");
