@@ -1,0 +1,107 @@
+#div_canvas, #div_form, #div_table {
+    float: left;
+    width: 33%;
+}
+
+#div_form {
+    border: 1px solid black;
+}
+
+#div_form:hover {
+    border: 1px solid red;
+}
+
+@media (max-width: 1400px) {
+    #div_canvas, #div_form, #div_table {
+        width: 100%;
+    }
+}
+
+/*---------------------------------------------------------------------*/
+canvas {
+    border: 1px dashed black;
+}
+
+canvas:hover {
+    border: 1px solid red;
+}
+
+/*---------------------------------------------------------------------*/
+
+.container form > p {
+    margin-bottom: 10px;
+}
+
+p.error-message {
+    color: red;
+}
+
+.container form input[type="submit"] {
+    padding: 15px;
+    border: 1px dashed blue;
+}
+
+.container div form p {
+    margin-top: 40px;
+}
+
+form .button_input_x {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+
+    margin: 5px;
+    border: 2px dashed blue;
+    text-decoration: none;
+    border-radius: 50%;
+}
+
+form .button_input_x:hover {
+    border: 2px solid #6200a9;
+    color: #6200a9;
+}
+
+form .button_input_x.active {
+    border: 2px dashed red;
+    color: red;
+}
+
+form .button_input_x.active:hover {
+    border: 2px solid #70001e;
+    color: #70001e;
+}
+
+.container form input[type="text"] {
+    padding: 10px;
+    border-radius: 15px;
+}
+
+/*-------------------------------------------------------------------------------------------------------*/
+
+.container table {
+    margin: 10px auto;
+}
+
+.content td {
+    color: black;
+    font-size: 18px;
+}
+
+th, td {
+    padding: 10px;
+}
+
+td:hover {
+    font-style: italic;
+}
+
+/*.attemptsTable {*/
+/*    border: 1px green solid;*/
+/*    margin: 10px auto;*/
+/*}*/
+
+table, td, th {
+    /* задаем границу для всех элементов */
+    border: 3px solid #245488;
+}

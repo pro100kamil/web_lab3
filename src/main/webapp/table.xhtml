@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: kamil
+  Date: 16.10.2023
+  Time: 18:42
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+
+<h:head>
+    <title>Table</title>
+    <link rel="stylesheet" href="styles/main.css"/>
+    <link rel="stylesheet" href="styles/table.css"/>
+    <link rel="shortcut icon" href="images/biscuit.png" type="image/x-icon"/>
+</h:head>
+
+<h:body>
+    <div class="container">
+        <ui:include src="header.html"/>
+
+        <div id="div_canvas">
+            <canvas id="canvas" width="450px" height="450px">
+                <!--                <f:ajax execute="test" render="dataTable" onevent="return false"/>-->
+            </canvas>
+        </div>
+
+        <div id="div_form">
+            <!--  prependId = true => id, которые внутри jsf компонентов формы, получают префикс 'form:' перед id  -->
+            <!--            <h:form id="form" onsubmit="return false" prependId="false">-->
+            <h:form id="form" prependId="false">
+                <!--                    TODO убрать три нижние строки -->
+                <div id="test">
+                    <h:outputText id="test_x" value="#{attempts.currentAttempt.x}"/>;
+                    <h:outputText id="test_y" value="#{attempts.currentAttempt.y}"/>;
+                    <h:outputText id="test_r" value="#{attempts.currentAttempt.r}"/>;
+                </div>
+
+                <br/>
+
+                X
+                <p class="p_input_x">
+                    <!--                commandLink преобразуется в a-->
+                    <h:commandLink value="-3"
+                                   styleClass="#{attempts.currentAttempt.x == -3 ? 'button_input_x  active' : 'button_input_x'}">
+                        <f:ajax render="test_x"
+                                listener="#{attempts.currentAttempt.setX(-3)}" onevent="handleClick(event)"/>
+                    </h:commandLink>
+
+                    <h:commandLink value="-2"
+                                   styleClass="#{attempts.currentAttempt.x == -2 ? 'button_input_x  active' : 'button_input_x'}">
+                        <f:ajax render="test_x"
+                                listener="#{attempts.currentAttempt.setX(-2)}" onevent="handleClick(event)"/>
+                    </h:commandLink>
+
+                    <h:commandLink value="-1"
+                                   styleClass="#{attempts.currentAttempt.x == -1 ? 'button_input_x  active' : 'button_input_x'}">
+                        <f:ajax render="test_x"
+                                listener="#{attempts.currentAttempt.setX(-1)}" onevent="handleClick(event)"/>
+                    </h:commandLink>
+
+                    <br/>
+
+                    <h:commandLink value="0"
+                                   styleClass="#{attempts.currentAttempt.x == 0 ? 'button_input_x  active' : 'button_input_x'}">
+                        <f:ajax render="test_x"
+                                listener="#{attempts.currentAttempt.setX(0)}" onevent="handleClick(event)"/>
+                    </h:commandLink>
+
+                    <h:commandLink value="1"
+                                   styleClass="#{attempts.currentAttempt.x == 1 ? 'button_input_x  active' : 'button_input_x'}">
+                        <f:ajax render="test_x"
+                                listener="#{attempts.currentAttempt.setX(1)}" onevent="handleClick(event)"/>
+                    </h:commandLink>
+
+                    <h:commandLink value="2"
+                                   styleClass="#{attempts.currentAttempt.x == 2 ? 'button_input_x  active' : 'button_input_x'}">
+                        <f:ajax render="test_x"
+                                listener="#{attempts.currentAttempt.setX(2)}" onevent="handleClick(event)"/>
+                    </h:commandLink>
+
+                    <br/>
+
+                    <h:commandLink value="3"
+                                   styleClass="#{attempts.currentAttempt.x == 3 ? 'button_input_x  active' : 'button_input_x'}">
+                        <f:ajax render="test_x"
+                                listener="#{attempts.currentAttempt.setX(3)}" onevent="handleClick(event)"/>
+                    </h:commandLink>
+
+                    <h:commandLink value="4"
+                                   styleClass="#{attempts.currentAttempt.x == 4 ? 'button_input_x  active' : 'button_input_x'}">
+                        <f:ajax render="test_x"
+                                listener="#{attempts.currentAttempt.setX(4)}" onevent="handleClick(event)"/>
+                    </h:commandLink>
+
+                    <h:commandLink value="5"
+                                   styleClass="#{attempts.currentAttempt.x == 5 ? 'button_input_x  active' : 'button_input_x'}">
+                        <f:ajax render="test_x"
+                                listener="#{attempts.currentAttempt.setX(5)}" onevent="handleClick(event)"/>
+                    </h:commandLink>
+                </p>
+
+                <p>
+                    Y[-5;5]
+                    <h:inputText styleClass="input_y" pt:placeholder="1.999" required="true"
+                                 value="#{attempts.currentAttempt.y}">
+                        <f:validateLongRange minimum="-5" maximum="5"/>
+                    </h:inputText>
+                </p>
+
+                <p>
+                    R[2;5]
+                    <h:inputText styleClass="input_r" pt:placeholder="2" value="#{attempts.currentAttempt.r}">
+                        <f:validateLongRange minimum="2" maximum="5"/>
+                    </h:inputText>
+                </p>
+
+                <p>
+                    <!--                    commandButton преобразуется в input[type="submit"]-->
+
+                    <!--       TODO починить валидацию       -->
+
+                    <!--                    <h:commandButton value="Отправить форму" styleClass="submit_btn">-->
+                    <h:commandButton value="Отправить форму">
+                        <!--                        <f:ajax listener="#{attempts.add()}" render="dataTable script"/>-->
+
+                        <!--                        <p:ajax listener="#{attempts.add()}" />-->
+                        <!--                        <p:ajax listener="#{attempts.add()}" update="dataTable" process="form" onstart="handleSubmit"/>-->
+                        <f:ajax listener="#{attempts.add()}" render="dataTable test" execute="form"
+                                onevent="handleSubmit"/>
+                    </h:commandButton>
+
+                    <br/>
+                    <br/>
+
+                    <h:commandButton value="Очистить попытки">
+                        <f:ajax listener="#{attempts.clear()}" render="dataTable" execute="form"
+                                onevent="handleClear"/>
+                    </h:commandButton>
+
+                    <!--                    <h:commandButton action="#{attempts.add}" value="Отправить форму" styleClass="submit_btn">-->
+                    <!--                        <f:ajax execute="@this" render="dataTable" onevent="return false"/>-->
+                    <!--                    </h:commandButton>-->
+
+                    <!--                    <h:commandButton value="Отправить форму" styleClass="submit_btn">-->
+                    <!--                        <f:ajax listener="#{attempts.add}" execute="@this" render="dataTable" onevent="return false"/>-->
+                    <!--                    </h:commandButton>-->
+
+                    <!--                    <p:commandButton ajax="true" id="submit" value="Отправить форму"-->
+                    <!--                                     styleClass="submit_btn"-->
+                    <!--                                     update="dataTable"-->
+                    <!--                    />-->
+
+                    <!--                    <p:commandButton value="Custom" styleClass="custom" action="#{buttonBasicView.sleep()}" />-->
+                </p>
+
+                <p class="error-message">Error</p>
+
+            </h:form>
+
+        </div>
+
+
+        <div id="div_table">
+            <h:dataTable id="dataTable" value="#{attempts.attempts}" var="attempt"
+                         styleClass="attemptsTable"
+                         headerClass="employeeTableHeader"
+                         rowClasses="employeeTableOddRow,employeeTableEvenRow">
+                <!--                         pt:border="1px black solid"-->
+
+
+                <h:column>
+                    <f:facet name="header">X</f:facet>
+                    <h:outputText value=" #{attempt.x}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Y</f:facet>
+                    #{attempt.y}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">R</f:facet>
+                    #{attempt.r}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">isHit</f:facet>
+                    #{attempt.isHit}
+                </h:column>
+            </h:dataTable>
+        </div>
+    </div>
+
+    <ui:include src="footer.html"/>
+
+    <script src="js/draw.js"></script>
+    <script src="js/validate.js"></script>
+    <script src="js/handleChangeCommandLink.js"></script>
+
+    <ui:param name="max" value="4"/>
+
+    <p:remoteCommand name="addAttempt" action="#{attempts.addFromCanvas()}" update="dataTable"
+                     oncomplete="updateCanvas()"/>
+</h:body>
+
+</html>

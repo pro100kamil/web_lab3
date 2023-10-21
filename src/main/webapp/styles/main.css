@@ -1,0 +1,72 @@
+* {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #bda1c2;
+    height: 100%;
+}
+
+p {
+    font-size: 16px;
+}
+
+.container {    /* шапка и основное содержимое */
+    min-height: calc(100vh - 100px);
+}
+
+.container > canvas, .container > form, .container > div {
+    margin-bottom: 30px;
+}
+
+.header {
+    background-color: #f1c39c;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("http://localhost:8080/lab3/images/biscuit1.png");
+}
+
+.header:hover {
+    background-image: url("http://localhost:8080/lab3/images/biscuit2.png");
+}
+
+.header:active {
+    background-image: url("http://localhost:8080/lab3/images/biscuit3.png");
+}
+
+.header h1 {
+    color: #771919;
+}
+
+.header > h2 {
+    color: #6b3431;
+}
+
+.header > a {
+    text-decoration: none;
+}
+
+.footer {
+    background-color: #282121;
+    height: 100px;
+    clear: both;
+}
+
+.footer > p {
+    color: #ac77e8;
+    padding-top: 40px;
+
+    /* анимация: */
+    transition-property: font-size, color;
+    transition-duration: 4s;
+    transition-timing-function: cubic-bezier(0, .5, .5, 1.5);;
+}
+
+.footer > p:hover {
+    color: pink;
+    font-size: 25px;
+}
