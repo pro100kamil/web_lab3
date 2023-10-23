@@ -1,15 +1,28 @@
 package models;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Table(name = "attempts")
 public class Attempt implements Serializable {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name="id", unique=true, nullable = false)
+    private int id;
+
+    @Column(name="x", nullable = false)
     private double x;
+
+    @Column(name="y", nullable = false)
     private double y;
+
+    @Column(name="r", nullable = false)
     private int r;
+
+    @Column(name = "isHit", nullable = false)
     private boolean isHit;
-    private LocalDateTime dateTime;
 
     public Attempt() {
         super();
@@ -20,7 +33,6 @@ public class Attempt implements Serializable {
         this.y = Double.parseDouble(y);
         this.r = Integer.parseInt(r);
 
-        dateTime = LocalDateTime.now();
         isHit = Checker.checkHit(this.x, this.y, this.r);
     }
 
@@ -29,8 +41,11 @@ public class Attempt implements Serializable {
         this.y = y;
         this.r = r;
 
-        dateTime = LocalDateTime.now();
         isHit = Checker.checkHit(this.x, this.y, this.r);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public double getX() {
@@ -49,10 +64,6 @@ public class Attempt implements Serializable {
         return isHit;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
     public void setX(double x) {
         this.x = x;
     }
@@ -69,10 +80,6 @@ public class Attempt implements Serializable {
         isHit = hit;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
     public void updateIsHIt() {
         isHit = Checker.checkHit(this.x, this.y, this.r);
     }
@@ -82,22 +89,22 @@ public class Attempt implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Attempt attempt = (Attempt) o;
-        return Double.compare(attempt.x, x) == 0 && Double.compare(attempt.y, y) == 0 && r == attempt.r && isHit == attempt.isHit && Objects.equals(dateTime, attempt.dateTime);
+        return id == attempt.id && Double.compare(attempt.x, x) == 0 && Double.compare(attempt.y, y) == 0 && r == attempt.r && isHit == attempt.isHit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y, r, isHit, dateTime);
+        return Objects.hash(id, x, y, r, isHit);
     }
 
     @Override
     public String toString() {
         return "Attempt{" +
-                "x=" + x +
+                "id=" + id +
+                ", x=" + x +
                 ", y=" + y +
                 ", r=" + r +
                 ", isHit=" + isHit +
-                ", dateTime=" + dateTime +
                 '}';
     }
 }

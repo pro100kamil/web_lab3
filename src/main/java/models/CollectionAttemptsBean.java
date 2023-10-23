@@ -1,6 +1,8 @@
 package models;
 
 
+import database.HibernateManager;
+
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -15,23 +17,38 @@ import java.util.Objects;
 public class CollectionAttemptsBean implements Serializable {
     private final List<Attempt> attempts;
     private final LocalDateTime dateTime;
+    private final HibernateManager hibernateManager;
 
     private Attempt currentAttempt = new Attempt("0", "0", "2");
 
     public CollectionAttemptsBean() {
+        hibernateManager = new HibernateManager();
+
         attempts = new ArrayList<>();
         dateTime = LocalDateTime.now();
     }
 
-    public void add() {
-        currentAttempt.updateIsHIt();
-        attempts.add(currentAttempt);
-        currentAttempt = new Attempt(currentAttempt.getX(),
-                currentAttempt.getY(), currentAttempt.getR());
-    }
-
     public void add(Attempt attempt) {
         attempts.add(attempt);
+
+        hibernateManager.addAttempt(attempt);
+    }
+
+    public void clear() {
+        attempts.clear();
+
+        hibernateManager.clearAttempts();
+    }
+
+    public List<Attempt> getAttempts() {
+        return attempts;
+    }
+
+    public void addFromForm() {
+        currentAttempt.updateIsHIt();
+        add(currentAttempt);
+        currentAttempt = new Attempt(currentAttempt.getX(),
+                currentAttempt.getY(), currentAttempt.getR());
     }
 
     public void addFromCanvas() {
@@ -40,14 +57,6 @@ public class CollectionAttemptsBean implements Serializable {
         String strR = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("r");
 
         add(new Attempt(strX, strY, strR));
-    }
-
-    public void clear() {
-        attempts.clear();
-    }
-
-    public List<Attempt> getAttempts() {
-        return attempts;
     }
 
     public LocalDateTime getDateTime() {

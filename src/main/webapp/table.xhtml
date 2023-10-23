@@ -128,11 +128,11 @@
                 <p>
                     <!--  commandButton преобразуется в input[type="submit"]-->
                     <h:commandButton value="Отправить форму">
-                        <f:ajax listener="#{attempts.add()}" render="dataTable test" execute="form"
+                        <f:ajax listener="#{attempts.addFromForm()}" render="dataTable test" execute="form"
                                 onevent="handleSubmit"/>
                     </h:commandButton>
                     <h:commandButton value="Очистить попытки">
-                        <f:ajax listener="#{attempts.clear()}" render="dataTable" execute="form"
+                        <f:ajax listener="#{attempts.clear()}" render="dataTable"
                                 onevent="handleClear"/>
                     </h:commandButton>
                 </p>
