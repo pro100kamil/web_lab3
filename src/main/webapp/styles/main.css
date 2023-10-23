@@ -38,6 +38,12 @@ p {
     background-image: url("http://localhost:8080/lab3/images/biscuit3.png");
 }
 
+@media (max-width: 1400px) {
+    .header {
+        background-image: url("http://localhost:8080/lab3/images/biscuit4.png");
+    }
+}
+
 .header h1 {
     color: #771919;
 }

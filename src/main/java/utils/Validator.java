@@ -1,4 +1,4 @@
-package models;
+package utils;
 
 public class Validator {
     public static boolean validateX(String strX) {

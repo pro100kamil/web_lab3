@@ -1,4 +1,4 @@
-package models;
+package utils;
 
 public class Checker {
     public static boolean checkHit(double x, double y, int r) {

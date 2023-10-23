@@ -30,7 +30,7 @@
 
         <div id="div_canvas">
             <canvas id="canvas" width="450px" height="450px">
-                <!--                <f:ajax execute="test" render="dataTable" onevent="return false"/>-->
+
             </canvas>
         </div>
 
@@ -38,18 +38,9 @@
             <!--  prependId = true => id, которые внутри jsf компонентов формы, получают префикс 'form:' перед id  -->
             <!--            <h:form id="form" onsubmit="return false" prependId="false">-->
             <h:form id="form" prependId="false">
-                <!--                    TODO убрать три нижние строки -->
-                <div id="test">
-                    <h:outputText id="test_x" value="#{attempts.currentAttempt.x}"/>;
-                    <h:outputText id="test_y" value="#{attempts.currentAttempt.y}"/>;
-                    <h:outputText id="test_r" value="#{attempts.currentAttempt.r}"/>;
-                </div>
-
-                <br/>
-
                 <p class="p_input_x">
                     X <br/>
-                    <!--                commandLink преобразуется в a-->
+                    <!-- commandLink преобразуется в a -->
                     <h:commandLink value="-3"
                                    styleClass="#{attempts.currentAttempt.x == -3 ? 'button_input_x  active' : 'button_input_x'}">
                         <f:ajax render="test_x"

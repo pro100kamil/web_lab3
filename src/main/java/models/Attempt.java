@@ -1,5 +1,7 @@
 package models;
 
+import utils.Checker;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;

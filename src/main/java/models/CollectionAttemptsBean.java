@@ -1,6 +1,5 @@
 package models;
 
-
 import database.HibernateManager;
 
 import javax.faces.bean.ApplicationScoped;
@@ -8,7 +7,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,12 +17,12 @@ public class CollectionAttemptsBean implements Serializable {
     private final LocalDateTime dateTime;
     private final HibernateManager hibernateManager;
 
-    private Attempt currentAttempt = new Attempt("0", "0", "2");
+    private Attempt currentAttempt = new Attempt("1", "0", "2");
 
     public CollectionAttemptsBean() {
         hibernateManager = new HibernateManager();
 
-        attempts = new ArrayList<>();
+        attempts = hibernateManager.getAttempts();
         dateTime = LocalDateTime.now();
     }
 
