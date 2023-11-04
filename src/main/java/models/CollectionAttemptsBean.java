@@ -8,7 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,14 +22,17 @@ public class CollectionAttemptsBean implements Serializable {
 
     public CollectionAttemptsBean() {
         hibernateManager = new HibernateManager();
+        // чтобы он работал, не забывать прокидывать порт!!!
 
-//        attempts = new ArrayList<>();
         attempts = hibernateManager.getAttempts();
         dateTime = LocalDateTime.now();
     }
 
     public void add(Attempt attempt) {
         attempts.add(attempt);
+        String groupName = attempt.getGroupName();
+//        if ()
+        //TODO придумать как доставать коллекцию груп
 
         hibernateManager.addAttempt(attempt);
     }

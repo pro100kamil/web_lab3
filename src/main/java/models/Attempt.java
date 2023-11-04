@@ -26,6 +26,8 @@ public class Attempt implements Serializable {
     @Column(name = "isHit", nullable = false)
     private boolean isHit;
 
+    private String groupName = "default group";
+
     public Attempt() {
         super();
     }
@@ -80,6 +82,14 @@ public class Attempt implements Serializable {
 
     public void setHit(boolean hit) {
         isHit = hit;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public void updateIsHIt() {

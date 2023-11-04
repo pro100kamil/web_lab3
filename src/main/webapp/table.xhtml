@@ -36,7 +36,6 @@
 
         <div id="div_form">
             <!--  prependId = true => id, которые внутри jsf компонентов формы, получают префикс 'form:' перед id  -->
-            <!--            <h:form id="form" onsubmit="return false" prependId="false">-->
             <h:form id="form" prependId="false">
                 <p class="p_input_x">
                     X <br/>
@@ -117,6 +116,14 @@
                 </p>
 
                 <p>
+                    Group
+                    <h:inputText styleClass="input_group" pt:placeholder="group name" required="true"
+                                 value="#{attempts.currentAttempt.groupName}" onchange="updateCanvas()">
+
+                    </h:inputText>
+                </p>
+
+                <p>
                     <!--  commandButton преобразуется в input[type="submit"]-->
                     <h:commandButton value="Отправить форму">
                         <f:ajax listener="#{attempts.addFromForm()}" render="dataTable test" execute="form"
@@ -160,6 +167,47 @@
                 <h:column>
                     <f:facet name="header">isHit</f:facet>
                     #{attempt.isHit}
+                </h:column>
+            </h:dataTable>
+
+            <h:dataTable id="dataTableGroupOfPoints" value="#{groups.groups}" var="group"
+                         styleClass="attemptsTable"
+                         headerClass="employeeTableHeader"
+                         rowClasses="employeeTableOddRow,employeeTableEvenRow">
+
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{group.name}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Count</f:facet>
+                    <h:outputText value="#{group.attempts.size()}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Points</f:facet>
+                    <h:dataTable value="#{group.attempts}" var="attempt">
+                        <h:column>
+                            <f:facet name="header">X</f:facet>
+                            <h:outputText value="#{attempt.x}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Y</f:facet>
+                            #{attempt.y}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">R</f:facet>
+                            #{attempt.r}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">isHit</f:facet>
+                            #{attempt.isHit}
+                        </h:column>
+                    </h:dataTable>
                 </h:column>
             </h:dataTable>
         </div>
