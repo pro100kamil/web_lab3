@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HibernateManager {
@@ -23,6 +24,9 @@ public class HibernateManager {
     public List<Attempt> getAttempts() {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("from Attempt", Attempt.class).list();
+        }
+        catch (Exception _ignored) {
+            return new ArrayList<>();
         }
     }
 
