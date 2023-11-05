@@ -8,20 +8,19 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
-@ManagedBean(name = "attempts", eager=true)
+@ManagedBean(name = "attempts", eager = true)
 @ApplicationScoped
 public class CollectionAttemptsBean implements Serializable {
-    private final List<Attempt> attempts;
-    private final LocalDateTime dateTime;
+    private List<Attempt> attempts = new ArrayList<>();
     private final HibernateManager hibernateManager;
 
-    @ManagedProperty(value="#{groups}")
+    @ManagedProperty(value = "#{groups}")
     private CollectionGroupsBean collectionGroupsBean;
+
     public void setCollectionGroupsBean(CollectionGroupsBean collectionGroupsBean) {
         this.collectionGroupsBean = collectionGroupsBean;
     }
@@ -33,7 +32,6 @@ public class CollectionAttemptsBean implements Serializable {
         // чтобы он работал, не забывать прокидывать порт!!!
 
         attempts = hibernateManager.getAttempts();
-        dateTime = LocalDateTime.now();
     }
 
     public void add(Attempt attempt) {
@@ -44,8 +42,7 @@ public class CollectionAttemptsBean implements Serializable {
             collectionGroupsBean.getMap().get(groupName).add(attempt);
 
             attempt.setGroup(collectionGroupsBean.getMap().get(groupName));
-        }
-        else {
+        } else {
 //            GroupOfPoints group = new GroupOfPoints(groupName);
             collectionGroupsBean.add(attempt.group);
 
@@ -60,6 +57,8 @@ public class CollectionAttemptsBean implements Serializable {
         attempts.clear();
 
         hibernateManager.clearAttempts();
+
+        collectionGroupsBean.clear();
     }
 
     public List<Attempt> getAttempts() {
@@ -81,10 +80,6 @@ public class CollectionAttemptsBean implements Serializable {
         add(new Attempt(strX, strY, strR));
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
     public Attempt getCurrentAttempt() {
         return currentAttempt;
     }
@@ -98,19 +93,18 @@ public class CollectionAttemptsBean implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CollectionAttemptsBean that = (CollectionAttemptsBean) o;
-        return Objects.equals(attempts, that.attempts) && Objects.equals(dateTime, that.dateTime);
+        return Objects.equals(attempts, that.attempts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(attempts, dateTime);
+        return Objects.hash(attempts);
     }
 
     @Override
     public String toString() {
         return "CollectionAttempts{" +
                 "attempts=" + attempts +
-                ", dateTime=" + dateTime +
                 '}';
     }
 }

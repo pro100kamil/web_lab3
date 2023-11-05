@@ -30,9 +30,10 @@ public class GroupOfPoints implements Serializable {
     @Column(name="name", unique = true, nullable = false)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "group_id")
-    private final List<Attempt> attempts = new ArrayList<>();
+    private List<Attempt> attempts = new ArrayList<>();
 
 //    @Transient
 //    private final static GroupOfPoints defaultGroup = new GroupOfPoints("default group");
@@ -60,7 +61,11 @@ public class GroupOfPoints implements Serializable {
         return attempts;
     }
 
-//    public static GroupOfPoints getDefaultGroup() {
+    public void setAttempts(List<Attempt> attempts) {
+        this.attempts = attempts;
+    }
+
+    //    public static GroupOfPoints getDefaultGroup() {
 //        return defaultGroup;
 //    }
 }
