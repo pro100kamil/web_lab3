@@ -32,7 +32,7 @@ public class CollectionAttemptsBean implements Serializable {
         attempts.add(attempt);
         String groupName = attempt.getGroupName();
 //        if ()
-        //TODO придумать как доставать коллекцию груп
+        //TODO придумать как доставать коллекцию групп
 
         hibernateManager.addAttempt(attempt);
     }

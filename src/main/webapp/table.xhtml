@@ -168,6 +168,11 @@
                     <f:facet name="header">isHit</f:facet>
                     #{attempt.isHit}
                 </h:column>
+
+                <h:column>
+                    <f:facet name="header">groupName</f:facet>
+                    <h:outputText value="#{attempt.groupName}"/>
+                </h:column>
             </h:dataTable>
 
             <h:dataTable id="dataTableGroupOfPoints" value="#{groups.groups}" var="group"
