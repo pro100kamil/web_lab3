@@ -37,16 +37,16 @@ public class CollectionAttemptsBean implements Serializable {
     public void add(Attempt attempt) {
         attempts.add(attempt);
 
-        String groupName = attempt.group.getName();
+        String groupName = attempt.getGroup().getName();
         if (collectionGroupsBean.getMap().containsKey(groupName)) {
             collectionGroupsBean.getMap().get(groupName).add(attempt);
 
             attempt.setGroup(collectionGroupsBean.getMap().get(groupName));
         } else {
 //            GroupOfPoints group = new GroupOfPoints(groupName);
-            collectionGroupsBean.add(attempt.group);
+            collectionGroupsBean.add(attempt.getGroup());
 
-            attempt.group.add(attempt);
+            attempt.getGroup().add(attempt);
         }
         //TODO придумать как доставать коллекцию групп
 
@@ -76,8 +76,12 @@ public class CollectionAttemptsBean implements Serializable {
         String strX = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("x");
         String strY = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("y");
         String strR = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("r");
+        String groupName = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("groupName");
 
-        add(new Attempt(strX, strY, strR));
+        Attempt attempt = new Attempt(strX, strY, strR);
+        attempt.getGroup().setName(groupName);
+
+        add(attempt);
     }
 
     public Attempt getCurrentAttempt() {

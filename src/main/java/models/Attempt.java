@@ -44,7 +44,7 @@ public class Attempt implements Serializable {
 
     @ManyToOne
     @JoinColumn(name="group_id", nullable=false)
-    public GroupOfPoints group = new GroupOfPoints("default");
+    private GroupOfPoints group = new GroupOfPoints("default");
 
 //    private String groupName = "default group";
 

@@ -1,7 +1,8 @@
 let centerX = 225;  //в этом мест x=0 с точки зрения математических координат
 let centerY = 225;  //в этом мест y=0 с точки зрения математических координат
 let R = 200;
-let DEFAULT_R_ = 2;
+let DEFAULT_R_ = 2;     // значения по умолчанию берутся в случае некорректности этих данных в форме
+let DEFAULT_GROUP_NAME = "default";
 let canvas = document.getElementById("canvas");
 let context = canvas.getContext("2d");
 context.font = "12px Verdana";
@@ -12,10 +13,20 @@ function drawPoint(x, y, delta = 2) {
 
 function get_r_() {
     let input_r = document.getElementsByClassName("input_r")[0];
+
     if (isNaN(+input_r.value) || +input_r.value < 2 || +input_r.value > 5) {
         return DEFAULT_R_;
     }
     return +input_r.value;
+}
+
+function get_group_name() {
+    let input_group = document.getElementsByClassName("input_group")[0];
+
+    if (input_group.value === "") {
+        return DEFAULT_GROUP_NAME;
+    }
+    return input_group.value;
 }
 
 function drawPointForJSF(mathX, mathY, color = "red", delta = 4) {
@@ -170,11 +181,14 @@ canvas.onclick = (event) => {
     let x_ = mathX / R * r_;
     let y_ = mathY / R * r_;
 
+    console.log(get_r_(), get_group_name());
+
     addAttempt(
         [
             {name: "x", value: x_.toString()},
             {name: "y", value: y_.toString()},
-            {name: "r", value: r_.toString()}
+            {name: "r", value: r_.toString()},
+            {name: "groupName", value: get_group_name()}
         ]
     )
 

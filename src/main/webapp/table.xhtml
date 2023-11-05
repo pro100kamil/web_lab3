@@ -126,12 +126,12 @@
                 <p>
                     <!--  commandButton преобразуется в input[type="submit"]-->
                     <h:commandButton value="Отправить форму">
-<!--                        TODO обновляет пока только одну таблицу -->
-                        <f:ajax listener="#{attempts.addFromForm()}" render="dataTable dataTableGroupOfPoints" execute="form"
+<!--                        TODO обновляет пока только одну таблицу dataTableGroupOfPoints -->
+                        <f:ajax listener="#{attempts.addFromForm()}" render="tablePanel" execute="form"
                                 onevent="handleSubmit"/>
                     </h:commandButton>
                     <h:commandButton value="Очистить попытки">
-                        <f:ajax listener="#{attempts.clear()}" render="dataTable dataTableGroupOfPoints"
+                        <f:ajax listener="#{attempts.clear()}" render="tablePanel"
                                 onevent="handleClear"/>
                     </h:commandButton>
                 </p>
@@ -145,89 +145,91 @@
         </div>
 
         <div id="div_table">
-            <h:dataTable id="dataTable" value="#{attempts.attempts}" var="attempt"
-                         styleClass="attemptsTable"
-                         headerClass="employeeTableHeader"
-                         rowClasses="employeeTableOddRow,employeeTableEvenRow">
+            <h:panelGroup id="tablePanel">
+                <h:dataTable id="dataTable" value="#{attempts.attempts}" var="attempt"
+                             styleClass="attemptsTable"
+                             headerClass="employeeTableHeader"
+                             rowClasses="employeeTableOddRow,employeeTableEvenRow">
 
-                <h:column>
-                    <f:facet name="header">X</f:facet>
-                    <h:outputText value="#{attempt.x}"/>
-                </h:column>
+                    <h:column>
+                        <f:facet name="header">X</f:facet>
+                        <h:outputText value="#{attempt.x}"/>
+                    </h:column>
 
-                <h:column>
-                    <f:facet name="header">Y</f:facet>
-                    #{attempt.y}
-                </h:column>
+                    <h:column>
+                        <f:facet name="header">Y</f:facet>
+                        #{attempt.y}
+                    </h:column>
 
-                <h:column>
-                    <f:facet name="header">R</f:facet>
-                    #{attempt.r}
-                </h:column>
+                    <h:column>
+                        <f:facet name="header">R</f:facet>
+                        #{attempt.r}
+                    </h:column>
 
-                <h:column>
-                    <f:facet name="header">isHit</f:facet>
-                    #{attempt.isHit}
-                </h:column>
+                    <h:column>
+                        <f:facet name="header">isHit</f:facet>
+                        #{attempt.isHit}
+                    </h:column>
 
-                <h:column>
-                    <f:facet name="header">groupName</f:facet>
-                    <h:outputText value="#{attempt.group.name}"/>
-                </h:column>
-            </h:dataTable>
+                    <h:column>
+                        <f:facet name="header">groupName</f:facet>
+                        <h:outputText value="#{attempt.group.name}"/>
+                    </h:column>
+                </h:dataTable>
 
-            <h:dataTable id="dataTableGroupOfPoints" value="#{groups.groups}" var="group"
-                         styleClass="attemptsTable"
-                         headerClass="employeeTableHeader"
-                         rowClasses="employeeTableOddRow,employeeTableEvenRow">
+                <h:dataTable id="dataTableGroupOfPoints" value="#{groups.groups}" var="group"
+                             styleClass="attemptsTable"
+                             headerClass="employeeTableHeader"
+                             rowClasses="employeeTableOddRow,employeeTableEvenRow">
 
-                <h:column>
-                    <f:facet name="header">Name</f:facet>
-                    <h:outputText value="#{group.name}"/>
-                </h:column>
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                        <h:outputText value="#{group.name}"/>
+                    </h:column>
 
-                <h:column>
-                    <f:facet name="header">Count</f:facet>
-                    <h:outputText value="#{group.attempts.size()}"/>
-                </h:column>
+                    <h:column>
+                        <f:facet name="header">Count</f:facet>
+                        <h:outputText value="#{group.attempts.size()}"/>
+                    </h:column>
 
-                <h:column>
-                    <f:facet name="header">Points</f:facet>
-                    <h:dataTable value="#{group.attempts}" var="attempt">
-                        <h:column>
-                            <f:facet name="header">X</f:facet>
-                            <h:outputText value="#{attempt.x}"/>
-                        </h:column>
+                    <h:column>
+                        <f:facet name="header">Points</f:facet>
+                        <h:dataTable value="#{group.attempts}" var="attempt">
+                            <h:column>
+                                <f:facet name="header">X</f:facet>
+                                <h:outputText value="#{attempt.x}"/>
+                            </h:column>
 
-                        <h:column>
-                            <f:facet name="header">Y</f:facet>
-                            #{attempt.y}
-                        </h:column>
+                            <h:column>
+                                <f:facet name="header">Y</f:facet>
+                                #{attempt.y}
+                            </h:column>
 
-                        <h:column>
-                            <f:facet name="header">R</f:facet>
-                            #{attempt.r}
-                        </h:column>
+                            <h:column>
+                                <f:facet name="header">R</f:facet>
+                                #{attempt.r}
+                            </h:column>
 
-                        <h:column>
-                            <f:facet name="header">isHit</f:facet>
-                            #{attempt.isHit}
-                        </h:column>
-                    </h:dataTable>
-                </h:column>
-            </h:dataTable>
+                            <h:column>
+                                <f:facet name="header">isHit</f:facet>
+                                #{attempt.isHit}
+                            </h:column>
+                        </h:dataTable>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
         </div>
     </div>
 
     <ui:include src="footer.html"/>
 
+    <p:remoteCommand name="addAttempt" action="#{attempts.addFromCanvas()}" update="dataTable dataTableGroupOfPoints"
+                     oncomplete="updateCanvas()"/>
+
     <script src="js/draw.js" type="text/javascript"></script>
     <script src="js/validate.js" type="text/javascript"></script>
     <script src="js/handleChangeCommandLink.js" type="text/javascript"></script>
     <script src="js/handleButtons.js" type="text/javascript"></script>
-
-    <p:remoteCommand name="addAttempt" action="#{attempts.addFromCanvas()}" update="dataTable dataTableGroupOfPoints"
-                     oncomplete="updateCanvas()"/>
 </h:body>
 
 </html>
