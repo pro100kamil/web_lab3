@@ -42,11 +42,11 @@ public class Attempt implements Serializable {
     @Column(name = "isHit", nullable = false)
     private boolean isHit;
 
-//    @ManyToOne
-//    @JoinColumn(name="group_id", nullable=true)
-//    public GroupOfPoints group = GroupOfPoints.getDefaultGroup();
+    @ManyToOne
+    @JoinColumn(name="group_id", nullable=false)
+    public GroupOfPoints group = new GroupOfPoints("default");
 
-    private String groupName = "default group";
+//    private String groupName = "default group";
 
     public Attempt() {
 
@@ -104,12 +104,12 @@ public class Attempt implements Serializable {
         isHit = hit;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public GroupOfPoints getGroup() {
+        return group;
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public void setGroup(GroupOfPoints group) {
+        this.group = group;
     }
 
     public void updateIsHIt() {

@@ -118,7 +118,7 @@
                 <p>
                     Group
                     <h:inputText styleClass="input_group" pt:placeholder="group name" required="true"
-                                 value="#{attempts.currentAttempt.groupName}" onchange="updateCanvas()">
+                                 value="#{attempts.currentAttempt.group.name}" onchange="updateCanvas()">
 
                     </h:inputText>
                 </p>
@@ -171,7 +171,7 @@
 
                 <h:column>
                     <f:facet name="header">groupName</f:facet>
-                    <h:outputText value="#{attempt.groupName}"/>
+                    <h:outputText value="#{attempt.group.name}"/>
                 </h:column>
             </h:dataTable>
 

@@ -1,6 +1,7 @@
 package database;
 
 import models.Attempt;
+import models.GroupOfPoints;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -30,10 +31,31 @@ public class HibernateManager {
         }
     }
 
+    public List<GroupOfPoints> getGroups() {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("from GroupOfPoints", GroupOfPoints.class).list();
+        }
+        catch (Exception _ignored) {
+            return new ArrayList<>();
+        }
+    }
+
     public void addAttempt(Attempt attempt) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
+
             session.save(attempt);
+
+            transaction.commit();
+        }
+    }
+
+    public void addGroup(GroupOfPoints group) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            session.save(group);
+
             transaction.commit();
         }
     }

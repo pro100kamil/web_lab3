@@ -5,10 +5,12 @@ import database.HibernateManager;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @ManagedBean(name = "attempts", eager=true)
@@ -17,6 +19,12 @@ public class CollectionAttemptsBean implements Serializable {
     private final List<Attempt> attempts;
     private final LocalDateTime dateTime;
     private final HibernateManager hibernateManager;
+
+    @ManagedProperty(value="#{groups}")
+    private CollectionGroupsBean collectionGroupsBean;
+    public void setCollectionGroupsBean(CollectionGroupsBean collectionGroupsBean) {
+        this.collectionGroupsBean = collectionGroupsBean;
+    }
 
     private Attempt currentAttempt = new Attempt("0", "0", "2");
 
@@ -30,8 +38,19 @@ public class CollectionAttemptsBean implements Serializable {
 
     public void add(Attempt attempt) {
         attempts.add(attempt);
-        String groupName = attempt.getGroupName();
-//        if ()
+
+        String groupName = attempt.group.getName();
+        if (collectionGroupsBean.getMap().containsKey(groupName)) {
+            collectionGroupsBean.getMap().get(groupName).add(attempt);
+
+            attempt.setGroup(collectionGroupsBean.getMap().get(groupName));
+        }
+        else {
+//            GroupOfPoints group = new GroupOfPoints(groupName);
+            collectionGroupsBean.add(attempt.group);
+
+            attempt.group.add(attempt);
+        }
         //TODO придумать как доставать коллекцию групп
 
         hibernateManager.addAttempt(attempt);
