@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@MyBean
 @ManagedBean(name = "attempts", eager = true)
 @ApplicationScoped
 public class CollectionAttemptsBean implements Serializable {
@@ -43,12 +44,10 @@ public class CollectionAttemptsBean implements Serializable {
 
             attempt.setGroup(collectionGroupsBean.getMap().get(groupName));
         } else {
-//            GroupOfPoints group = new GroupOfPoints(groupName);
             collectionGroupsBean.add(attempt.getGroup());
 
             attempt.getGroup().add(attempt);
         }
-        //TODO придумать как доставать коллекцию групп
 
         hibernateManager.addAttempt(attempt);
     }

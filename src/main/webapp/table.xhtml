@@ -126,7 +126,6 @@
                 <p>
                     <!--  commandButton преобразуется в input[type="submit"]-->
                     <h:commandButton value="Отправить форму">
-<!--                        TODO обновляет пока только одну таблицу dataTableGroupOfPoints -->
                         <f:ajax listener="#{attempts.addFromForm()}" render="tablePanel" execute="form"
                                 onevent="handleSubmit"/>
                     </h:commandButton>
@@ -197,12 +196,16 @@
                         <h:dataTable value="#{group.attempts}" var="attempt">
                             <h:column>
                                 <f:facet name="header">X</f:facet>
-                                <h:outputText value="#{attempt.x}"/>
+                                <h:outputText value="#{attempt.x}">
+                                    <f:convertNumber pattern="#0.00" />
+                                </h:outputText>
                             </h:column>
 
                             <h:column>
                                 <f:facet name="header">Y</f:facet>
-                                #{attempt.y}
+                                <h:outputText value="#{attempt.y}">
+                                    <f:convertNumber pattern="#0.00" />
+                                </h:outputText>
                             </h:column>
 
                             <h:column>
@@ -223,7 +226,7 @@
 
     <ui:include src="footer.html"/>
 
-    <p:remoteCommand name="addAttempt" action="#{attempts.addFromCanvas()}" update="dataTable dataTableGroupOfPoints"
+    <p:remoteCommand name="addAttempt" action="#{attempts.addFromCanvas()}" update="tablePanel"
                      oncomplete="updateCanvas()"/>
 
     <script src="js/draw.js" type="text/javascript"></script>

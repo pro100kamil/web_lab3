@@ -1,7 +1,5 @@
 package models;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import utils.Checker;
 
 import javax.persistence.*;
@@ -11,42 +9,27 @@ import java.util.Objects;
 @Entity
 @Table(name = "attempts")
 public class Attempt implements Serializable {
+//    create sequence attempts_sequence start 1000 increment -7 maxvalue 1000;
     @Id
-//    @GeneratedValue(strategy= GenerationType.IDENTITY)
-//    @Column(name="id", unique=true, nullable = false)
-    @GeneratedValue(generator = "test_sequence")
-//    create sequence hibernate_sequence start 1000 increment 7;
-
-//    @GeneratedValue(generator = "sequence-generator")
-//    @GenericGenerator(
-//            name = "sequence-generator",
-//            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-//            parameters = {
-//                    @Parameter(name = "sequence_name", value = "user_sequence"),
-//                    @Parameter(name = "initial_value", value = "1000"),
-//                    @Parameter(name = "increment_size", value = "-7")
-//            }
-//    )
-// nextId = curId + 2
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "attempts_generator")
+    @SequenceGenerator(name = "attempts_generator", sequenceName = "attempts_sequence", allocationSize = 1)
     private int id;
 
-    @Column(name="x", nullable = false)
+    @Column(name = "x", nullable = false)
     private double x;
 
-    @Column(name="y", nullable = false)
+    @Column(name = "y", nullable = false)
     private double y;
 
-    @Column(name="r", nullable = false)
+    @Column(name = "r", nullable = false)
     private int r;
 
     @Column(name = "isHit", nullable = false)
     private boolean isHit;
 
     @ManyToOne
-    @JoinColumn(name="group_id", nullable=false)
+    @JoinColumn(name = "group_id", nullable = false)
     private GroupOfPoints group = new GroupOfPoints("default");
-
-//    private String groupName = "default group";
 
     public Attempt() {
 

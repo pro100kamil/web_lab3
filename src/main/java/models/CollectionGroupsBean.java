@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-@ManagedBean(name = "groups", eager=true)
+@MyBean
+@ManagedBean(name = "groups", eager = true)
 @ApplicationScoped
 public class CollectionGroupsBean {
     private final List<GroupOfPoints> groups;
@@ -38,8 +39,6 @@ public class CollectionGroupsBean {
 
         hibernateManager.clearGroups();
     }
-
-    //TODO сделать очистку и брать из бд начальное состояние
 
     public Map<String, GroupOfPoints> getMap() {
         return map;

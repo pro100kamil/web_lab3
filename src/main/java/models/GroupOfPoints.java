@@ -1,8 +1,5 @@
 package models;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,32 +8,18 @@ import java.util.List;
 @Entity
 @Table(name = "groups")
 public class GroupOfPoints implements Serializable {
+    //    create sequence groups_sequence start 1 increment 2;
     @Id
-//    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @GeneratedValue(generator = "groupSequence")
-    @GenericGenerator(
-            name = "groupSequence",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @Parameter(name = "sequence_name", value = "group_sequence"),
-                    @Parameter(name = "initial_value", value = "1"),
-                    @Parameter(name = "increment_size", value = "2")
-            }
-    )
-// nextId = curId + 2
-    @Column(name="id", unique=true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groups_generator")
+    @SequenceGenerator(name = "groups_generator", sequenceName = "groups_sequence", allocationSize = 1)
     private int id;
 
     @Column(name="name", unique = true, nullable = false)
     private String name;
 
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "group_id")
     private List<Attempt> attempts = new ArrayList<>();
-
-//    @Transient
-//    private final static GroupOfPoints defaultGroup = new GroupOfPoints("default group");
 
     public GroupOfPoints() {
 
@@ -64,8 +47,4 @@ public class GroupOfPoints implements Serializable {
     public void setAttempts(List<Attempt> attempts) {
         this.attempts = attempts;
     }
-
-    //    public static GroupOfPoints getDefaultGroup() {
-//        return defaultGroup;
-//    }
 }
