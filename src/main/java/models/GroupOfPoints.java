@@ -10,6 +10,7 @@ import java.util.List;
 public class GroupOfPoints implements Serializable {
     //    create sequence groups_sequence start 1 increment 2;
     @Id
+    @Column(name="id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groups_generator")
     @SequenceGenerator(name = "groups_generator", sequenceName = "groups_sequence", allocationSize = 1)
     private int id;

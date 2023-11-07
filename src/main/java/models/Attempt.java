@@ -11,6 +11,7 @@ import java.util.Objects;
 public class Attempt implements Serializable {
 //    create sequence attempts_sequence start 1000 increment -7 maxvalue 1000;
     @Id
+    @Column(name="id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "attempts_generator")
     @SequenceGenerator(name = "attempts_generator", sequenceName = "attempts_sequence", allocationSize = 1)
     private int id;

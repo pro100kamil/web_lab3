@@ -8,15 +8,17 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @MyBean
 @ManagedBean(name = "attempts", eager = true)
 @ApplicationScoped
 public class CollectionAttemptsBean implements Serializable {
-    private List<Attempt> attempts = new ArrayList<>();
+    //нужно использовать потокобезопасные коллекции,
+    // потому что взаимодействия с коллекциями могут происходить в разных потоках.
+    private final CopyOnWriteArrayList<Attempt> attempts;
     private final HibernateManager hibernateManager;
 
     @ManagedProperty(value = "#{groups}")
@@ -32,7 +34,7 @@ public class CollectionAttemptsBean implements Serializable {
         hibernateManager = new HibernateManager();
         // чтобы он работал, не забывать прокидывать порт!!!
 
-        attempts = hibernateManager.getAttempts();
+        attempts = new CopyOnWriteArrayList<>(hibernateManager.getAttempts());
     }
 
     public void add(Attempt attempt) {
